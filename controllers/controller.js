@@ -2,7 +2,7 @@
 class Controller {
     static async home(req,res) {
        try {
-        res.send('Landing Page')
+        res.render('home')
        } catch (error) {
         console.log(error)
         res.error(error)

@@ -6,7 +6,8 @@ class UserController {
 
     static async loginForm(req,res) {
         try {
-            res.render('login')
+            let {error} = req.query;
+            res.render('login', {error})
         } catch (error) {
             if(error.name == "SequelizeValidationError"){
                 let err = error.errors.map(el => el.messange)
@@ -29,19 +30,27 @@ class UserController {
             let user = await User.findOne({where: {
                 email
             }})
+            const error = 'Invalid Email or Password'
             if(user){
-                const isRegistered = bcrypt.compareSync(password, user.password);
-                if(isRegistered){
+                //check password
+                const checkPassword = bcrypt.compareSync(password, user.password);
+                if(checkPassword){
+                    //kalo berhasil
+                    req.session.user ={ 
+                        id: user.id,
+                        role: user.role,
+                    }; //set session key userId dengan nilai user.id
                     res.redirect('/')
                 } else {
-                    const error = 'Invalid Email or Password'
                     res.redirect(`/login?error=${error}`) 
                 }
+            } else {
+                res.redirect(`/login?error=${error}`) 
             }
         } catch (error) {
             if(error.name == "SequelizeValidationError"){
                 let err = error.errors.map(el => el.message)
-                res.send(err)
+                res.redirect(`/login?error=${err}`) 
             } else {
                 console.log(error);
                 res.send(error)
@@ -51,15 +60,11 @@ class UserController {
 
     static async registerForm(req,res) {
         try {
-            res.render('registerForm')
+            let {error} = req.query;
+            res.render('registerForm',  {error} )
         } catch (error) {
-            if(error.name == "SequelizeValidationError"){
-                let err = error.errors.map(el => el.messange)
-                res.send(err)
-            } else {
                 console.log(error);
                 res.send(error)
-            }
         }
     }
 
@@ -72,11 +77,24 @@ class UserController {
         } catch (error) {
             if(error.name == "SequelizeValidationError"){
                 let err = error.errors.map(el => el.message)
-                res.send(err)
+                res.redirect(`/register?error=${err}`) 
             } else {
                 console.log(error);
                 res.send(error)
             }
+        }
+    }
+
+    static async logout(req,res) {
+        try {
+            req.session.destroy(function(err) {
+                // cannot access session here
+                if(err) res.send(err)
+                    else res.redirect('/login')
+              })
+        } catch (error) {
+                console.log(error);
+                res.send(error)
         }
     }
 }

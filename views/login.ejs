@@ -19,6 +19,16 @@
                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
       
                       <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">LOGIN</p>
+                      <div  class="d-flex flex-row align-items-center mb-4 justify-content-center">
+                        <% if (error) { %>
+                         <% error = error.split(',') %>
+                          <div class="text-center h3 fw-bold">
+                            <% error.forEach(el => { %>
+                             <p style="font-weight: bold; color: red;" class="text-uppercase"><%= el %></p>
+                            <% }) %>
+                          </div>
+                        <% } %>
+                      </div>
       
                       <form class="mx-1 mx-md-4" action="/login" method="post">
       
