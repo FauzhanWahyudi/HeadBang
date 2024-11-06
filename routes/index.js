@@ -11,6 +11,7 @@ router.get('/register', UserController.registerForm)
 router.post('/register', UserController.registerHandler)
 // get login
 router.get('/login', UserController.loginForm)
+router.post('/login', UserController.loginHandler)
 
 
 module.exports = router;
