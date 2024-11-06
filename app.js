@@ -1,14 +1,15 @@
-const express = require('express')
+const express = require('express');
+const router = require('./routes');
 const app = express()
 const port = 3000
 
 app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs')
 
+//landing page
+app.use(router)
+
 //bikin route login
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
 
 //bikin route store
