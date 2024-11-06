@@ -14,11 +14,49 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty:{
+          msg: 'Email is required'
+        },
+        notNull:{
+          msg: 'Email is required'
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty:{
+          msg: 'Password is required'
+        },
+        notNull:{
+          msg: 'Password is required'
+        }
+      }
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty:{
+          msg: 'Role is required'
+        },
+        notNull:{
+          msg: 'Role is required'
+        }
+      }
+    },
     point: DataTypes.INTEGER
   }, {
+    hooks:{
+      beforeCreate: (user) =>{
+        user.point = 0;
+      }
+    },
     sequelize,
     modelName: 'User',
   });

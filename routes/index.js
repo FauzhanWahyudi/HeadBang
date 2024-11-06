@@ -9,6 +9,8 @@ router.get('/', Controller.home)
 router.get('/register', UserController.registerForm)
 // post register
 router.post('/register', UserController.registerHandler)
+// get login
+router.get('/login', UserController.loginForm)
 
 
 module.exports = router;
