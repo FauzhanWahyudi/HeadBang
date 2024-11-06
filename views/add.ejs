@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+</head>
+<body>
+    <center>
+        <form action="/add" method="post">
+            <p>
+                <label for="productName">Product Name</label>
+                <input type="text" name="name" id="productName">
+            </p>
+            <p>
+                <label for="">Description</label>
+                <input type="text" name="description" id="">
+            </p>
+            <p>
+                <label for="">Price</label>
+                <input type="number" name="price" id="">
+            </p>
+            <p>
+                <label for="">Stock</label>
+                <input type="number" name="stock" id="">
+            </p>
+            <p>
+                <% let category = ["1", "2", "3", "4", "5"] %>
+                <label>Category</label>
+                <select name="CategoryId">
+                    <option selected disabled>--SELECT--</option>
+                    <% category.forEach(el => { %>
+                        <option value="<%= el %>"><%= el %></option>
+                    <% }) %>
+                </select>
+            </p>
+            <button type="SUBMIT">SUMBIT</button>
+        </form>
+    </center>
+</body>
+</html>
