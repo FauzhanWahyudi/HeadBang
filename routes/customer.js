@@ -1,9 +1,11 @@
 const router = require('express').Router();
-const Controller = require('../controllers/controller');
+const CartController = require('../controllers/CartController');
 const CustomerController = require('../controllers/CustomerController');
+const routerCart = require('./')
 
-router.get('/', CustomerController.home);
-router.get('/add', Controller.getAdd);
-router.post('/add', Controller.postAdd);
+router.get('/:userId', CustomerController.home);
+router.get('/:userId/cart', CartController.cart) //generate cart kalo ngga ada
+router.get('/:userId/cart/:cartId/add/:productId', CartController.cart) //generate cart kalo ngga ada
+
 
 module.exports = router

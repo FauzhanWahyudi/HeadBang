@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stores</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>Username</th>
+            <th>Store Name</th>
+            <th>Total sales</th>
+            <th>Total Products</th>
+        </tr>
+            <tr>
+                <td><%= data.username %></td>
+                <td><%= data.Store.name %></td>
+                <td><%= data.Store.productSales %></td>
+                <td><%= data.Store.Products.length %></td>
+            </tr>
+    </table>
+    <% if (data.Store.Products.length) { %>
+    <% let products =  data.Store.Products %>
+     <table>
+        <thead>
+            <tr class="touppercase">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Categories</th>
+                <th>Tags</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Added</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(el => { %>
+                <tr>
+                    <td><%= el.id %></td>
+                    <td><%= el.name %></td>
+                    <td><%= el.description %></td>
+                    <td><%= el.name %></td>
+                    <td><%= el.name %></td>
+                    <td><%= el.price %></td>
+                    <td><%= el.Stock %></td>
+                    <td><%= publishedTime(el.createdAt) %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+     </table>
+    <% } %>
+</body>
+</html>
