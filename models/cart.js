@@ -17,8 +17,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   Cart.init({
     price: DataTypes.INTEGER,
-    bonus: DataTypes.INTEGER
+    bonus: DataTypes.INTEGER,
+    isDone: DataTypes.BOOLEAN,
   }, {
+    hooks:{
+      beforeCreate: (cart) => {
+        cart.isDone = false
+      },
+    },
     sequelize,
     modelName: 'Cart',
   });
