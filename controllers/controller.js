@@ -1,14 +1,22 @@
 const publishedTime = require('../helpers/publishedTime');
-const { User, Store, Product, Category } = require('../models'); 
+const { User, Store, Product, Cart, Category } = require('../models'); 
 const category = require('../models/category');
 
 
 class Controller {
     static async home(req,res) {
        try {
-        res.render('home')
+        const id = req.session.user.id;
+        let user = await User.findByPk(id,{
+            include: Cart
+        });
+        console.log(user);
+        
+        let products = await Product.findAll();
+        res.render('home',{products,user})
        } catch (error) {
-        res.error(error);
+        console.log(error);
+        res.send(error);
        } 
     }
 

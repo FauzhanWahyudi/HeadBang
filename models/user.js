@@ -19,11 +19,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.Store)
+      User.belongsToMany(models.Cart, {through: 'UserCarts'})
     }
   }
   User.init({
     email: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
       validate: {
         notEmpty:{

@@ -47,7 +47,7 @@ class UserController {
                     if(user.role == 'seller'){
                         res.redirect(`/stores/${user.id}`)
                     } else {
-                        res.redirect('/home')
+                        res.redirect(`/customer/${user.id}`)
                     }
                 } else {
                     res.redirect(`/login?error=${error}`) 

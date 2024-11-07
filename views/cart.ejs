@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= user.username %> Cart</title>
+</head>
+<body>
+    <h1>Shoping Cart</h1>
+
+    <h3>On Cart Product List :</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% totalPrice = 0 %>
+            <% products.forEach(el => { %>
+                <tr>
+                    <td><%= el.name %></td>
+                    <td><%= el.price %></td>
+                </tr>
+                <% totalPrice += el.price %>
+            <% }) %>
+        </tbody>
+    </table>
+
+    Total Price : <%= totalPrice %>
+</body>
+</html>

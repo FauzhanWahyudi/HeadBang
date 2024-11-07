@@ -5,11 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 </head>
 <body>
     <%- include('nav') %>
     <main>
-        <h1>INI Home</h1>
-    </main>
+        <div class="card text-center" style="float: right; padding: 8px; margin-right: 5px;">
+            <a href="/customer/<%= user.id %>/cart/" class="btn btn-danger">Worthless Cart</a>
+            <p>Halo <%= user.username %></p>
+            <p>current point: <%= user.point %></p>
+        </div>
+        <h1 class="h1 text-center">Products List</h1>
+        <div style="width: 80%; margin: auto;">
+            <div class="d-flex flex-wrap gap-3 overflow-auto justify-content-center" style="max-width: 100%; max-height: 500px;">
+                  <div class="col-sm-4">
+                    <div class="card">
+                      <div class="image">
+                        <img src="http://loremflickr.com/320/150" />
+                      </div>
+                      <div class="card-inner">
+                        <div class="header">
+                          <h2>Title</h2>
+                          <h3>Sub-Head</h2>
+                      </div>
+                      <div class="content">
+                        <p>Content area</p>
+                      </div>
+                        </div>
+                    </div>
+                  </div>
+                  <% products.forEach(el => { %>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="image">
+                                <img src="" alt="<%= el.name %>" />
+                            </div>
+                            <div class="card-inner">
+                                <div class="header">
+                                <h2>Title</h2>
+                                <h3><%= el.name %></h2>
+                                </div>
+                                <div class="content">
+                                    <p><%= el.description %></p>
+                                </div>
+                                <a href="/customer/<%= user.id %>/cart/add/<%= el.id %>" class="btn btn-outline-success" style="width: 100%;">buy</a>
+                            </div>
+                        </div>
+                    </div>
+                  <% }) %>
+            </div>
+        </div>
+            </main>
 </body>
 </html>
