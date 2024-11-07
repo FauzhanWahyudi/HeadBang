@@ -6,13 +6,18 @@
     <title>Products</title>
 </head>
 <body>
+    <form action="" method="get">
+        <input type="text" name="search" placeholder="search">
+        <button type="submit">Search</button>
+    </form>
+
     <p>
-        <a href="/stores/listProducts=">ALL</a>
-        <a href="/stores/listProducts=Category1">Category 1</a>
-        <a href="/stores/listProducts=Category2">Category 2</a>
-        <a href="/stores/listProducts=Category3">Category 3</a>
-        <a href="/stores/listProducts=Category4">Category 4</a>
-        <a href="/stores/listProducts=Category5">Category 5</a>
+        <a href="/stores/listProducts?category=">ALL</a>
+        <a href="/stores/listProducts?category=1">Category 1</a>
+        <a href="/stores/listProducts?category=2">Category 2</a>
+        <a href="/stores/listProducts?category=3">Category 3</a>
+        <a href="/stores/listProducts?category=4">Category 4</a>
+        <a href="/stores/listProducts?category=5">Category 5</a>
     </p>
     <table border="1">
         <tr>
@@ -23,6 +28,7 @@
             <th>Stock</th>
             <th>Type</th>
             <th>Store</th>
+            <th>Action</th>
         </tr>
         <% data.forEach(el => { %>
             <tr>
@@ -33,6 +39,10 @@
                 <td><%= el.stock %></td>
                 <td><%= el.CategoryId %></td>
                 <td><%= el.StoreId %></td>
+                <td>
+                    <a href="/stores/<%= el.id %>/edit">EDIT</a>
+                    <a href="/stores/<%= el.id %>/delete">DELETE</a>
+                </td>
             </tr>
         <% }) %>
     </table>

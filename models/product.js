@@ -17,13 +17,17 @@ module.exports = (sequelize, DataTypes) => {
     //  >>>>> Sorting Product By Category <<<<<
     static async getProductsByCategory(category) {
       try {
-        let option = { include : 'Category'}
-        option.where = {};
-        if(category) {
-          option.where.category = category
-        } 
-        const data = await Product.findAll(option);
-        return data
+        let option = { 
+          include : {
+            model: sequelize.models.Category,
+            required: true,
+          },
+        };
+        option.include.where = {};
+        option.include.where.id = category;
+        let data = await Product.findAll(option);
+        
+        return data;
       } catch (error) {
         throw error;
       }

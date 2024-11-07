@@ -1,5 +1,5 @@
 const { User, Store, Product, Category } = require('../models'); 
-const category = require('../models/category');
+const { Op } = require('sequelize');
 
 
 class Controller {
@@ -36,10 +36,26 @@ class Controller {
 
     static async products(req, res) {
         try {
-            let {category} = req.query;
-            let data = await Product.getProductsByCategory(category);
+            let { search, category } = req.query;
+            let option = {};
+            option.where = {};
+
+            let data = null;
+            if(search) {
+                option.where.name = {
+                [Op.iLike]: `%${search}%`
+                }
+            }
+            
+            if(category){
+                data = await Product.getProductsByCategory(category);
+            } else {
+                data = await Product.findAll(option)
+            }
+            console.log(data);
             res.render('listProduct', {data});
         } catch (error) {
+            console.log(error);            
             res.send(error);
         }
     }
@@ -86,8 +102,22 @@ class Controller {
             });
             res.redirect('/stores/listProducts');
         } catch (error) {
-            console.log(error);
-            
+            res.send(error);
+        }
+    }
+
+    static async delete(req, res) {
+        try {
+            const {id} = req.params;
+            const {name} = await Product.findByPk(id);
+            await Product.destroy({
+                where : {
+                    id
+                }
+            })
+            res.redirect(`/stores/listProducts`)
+            // res.redirect(`/stores/listProducts/${id}?deleted=${name}`);
+        } catch (error) {
             res.send(error);
         }
     }

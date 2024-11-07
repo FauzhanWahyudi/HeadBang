@@ -15,7 +15,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Store.init({
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty:{
+          msg: 'Store name is required'
+        },
+        notNull:{
+          msg: 'Store name is required'
+        }
+      }
+    },
     productSales: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
   }, {

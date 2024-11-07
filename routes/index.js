@@ -28,6 +28,7 @@ router.use(isLogin);
 
 //go to store
 router.use('/stores',isSeller, routerStores),
+// router.use('/stores', routerStores),
 
 //go to customer page
 router.use('/customer', routerCustomer)

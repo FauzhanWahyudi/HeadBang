@@ -20,12 +20,19 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         notEmpty:{
           msg: 'Email is required'
         },
         notNull:{
           msg: 'Email is required'
+        },
+        validateEmail(value) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if(!emailRegex.test(value)) {
+            throw `Please input right email`
+          };
         }
       }
     },
@@ -38,6 +45,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         notNull:{
           msg: 'Password is required'
+        },
+        checkLength(value) {
+          if(value.length < 8) {
+            throw `Minimum password length 8`
+          }
         }
       }
     },
