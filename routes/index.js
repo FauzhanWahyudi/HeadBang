@@ -18,6 +18,8 @@ router.post('/login', UserController.loginHandler)
 //verification email
 router.get('/verify/:email', UserController.verify)
 
+//buat logout bisa
+router.get('/logout', UserController.logout)
 
 //landing page 
 router.get('/', Controller.landingPage)
@@ -27,8 +29,7 @@ router.get('/', Controller.landingPage)
 router.use(isLogin);
 
 //go to store
-// router.use('/stores',isSeller, routerStores),
-router.use('/stores', routerStores),
+router.use('/stores',isSeller, routerStores)
 
 //go to customer page
 router.use('/customer', routerCustomer)
@@ -38,8 +39,6 @@ router.use('/customer', routerCustomer)
 router.get('/home', Controller.home) //just check if login so can gooo
 
 
-//buat logout bisa
-router.get('/logout', UserController.logout)
 
 module.exports = router;
 

@@ -18,7 +18,9 @@
             
                 <!-- qr regenerate -->
             
-                <a href="/customer/<%= userId %>/cart/<%= cartId %>/checkout/success" class="btn btn-success">Confirm Payment</a>
+                <form action="/customer/<%= userId %>/cart/<%= cart.id %>/checkout/success" method="post">
+                    <button type="submit" class="text-uppercase btn btn-success" name="price" value="<%= cart.price %>">Confirm Payment</button>
+                </form>
             </div>
         </div>
     </main>

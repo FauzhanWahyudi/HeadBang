@@ -8,8 +8,13 @@ class Controller {
        try {
         const id = req.session.user.id;
         let user = await User.findByPk(id,{
-            include: Cart
-        });        
+            include: {
+                model: Cart,
+                where: {
+                    isDone: false,
+                }
+            },
+        }); 
         let products = await Product.findAll();
         res.render('home',{products,user})
        } catch (error) {

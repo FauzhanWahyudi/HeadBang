@@ -11,6 +11,6 @@ router.get('/:userId/cart/:cartId/delete/:productId/:cartProductId', CartControl
 router.get('/:userId/cart/:cartId/delete/:productId/:cartProductId', CartController.removeOneProductFromCart) //generate cart kalo ngga ada
 router.post('/:userId/cart/:cartId/updateCart', CartController.updateCartPrice) //generate cart kalo ngga ada
 router.get('/:userId/cart/:cartId/checkout', CartController.checkout) //generate cart kalo ngga ada
-router.get('/:userId/cart/:cartId/checkout/success', CartController.checkout) //generate cart kalo ngga ada
+router.post('/:userId/cart/:cartId/checkout/success', CartController.checkoutSuccess) //generate cart kalo ngga ada
 
 module.exports = router

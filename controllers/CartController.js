@@ -4,13 +4,16 @@ class CartController {
     static async cart(req,res) {
         try {
             const {userId} = req.params;
-            let {...user} = await User.findByPk(userId,{
+            const {...user} = await User.findByPk(userId,{
                 include: {
                     model: Cart,
                     through: {attributes: []},
                     include: {
                         model: Product,
                         through: {attributes: []},
+                    },
+                    where:{
+                        isDone: false
                     }
                 }
             })
@@ -44,11 +47,12 @@ class CartController {
                 include: {
                     model: Cart,
                     through: {attributes: []},
-                }
+                    where:{
+                        isDone: false
+                    }
+                },
             })
             let CartId = user.Carts[0].id
-            // console.log(CartId, productId);
-            //bikin junction
             await CartProduct.create({CartId, ProductId: productId});
             res.redirect('/home')
         } catch (error) {
@@ -104,7 +108,8 @@ class CartController {
     static async checkout(req,res) {
         try {
             const {userId, cartId} = req.params;
-            res.render('checkout',{userId, cartId})
+            let cart = await Cart.findByPk(cartId)
+            res.render('checkout',{userId, cart})
         } catch (error) {
             console.log(error);
             res.send(error)
@@ -114,7 +119,20 @@ class CartController {
     static async checkoutSuccess(req,res) {
         try {
             const {userId, cartId} = req.params;
-            res.redirect(`/customer/${userId}/cart/${cartId}/checkout`)
+
+            //change cart to done
+            let cart = await Cart.findByPk(cartId)
+            cart.update({isDone:true});
+
+            //add user bonus
+            let {price} = req.body
+            let point = price/1000;
+            let user = await User.findByPk(userId)
+            user.increment({point})
+
+            //go to home
+            const notif = 'Your purchase will be proccess, Thanks for Trust in Us'
+            res.redirect(`/customer/${userId}/cart?notif=${notif}`)
         } catch (error) {
             console.log(error);
             res.send(error)
