@@ -154,8 +154,8 @@ class Controller {
                     id
                 }
             })
-            res.redirect(`/stores/listProducts?deleted=${name}`);
-            // res.redirect(`/stores/${id}?deleted=${name}`);
+            // res.redirect(`/stores/listProducts?deleted=${name}`);
+            res.redirect(`/stores/${id}?deleted=${name}`);
         } catch (error) {
             res.send(error);
         }

@@ -7,6 +7,11 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 </head>
 <body>
+
+    <% if (deleted) { %>
+        <h1 style="color: red;font-weight: bold; text-transform: uppercase;">Product "<%= deleted %>" removed</h1>
+    <% } %>
+
     <table border="1">
         <tr>
             <th>Username</th>
