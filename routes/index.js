@@ -1,9 +1,10 @@
 const Controller = require('../controllers/controller');
 const UserController = require('../controllers/UserController');
-const { isLogin, isAdmin, isSeller } = require('../middleware/auth');
+const { isLogin, isSeller } = require('../middleware/auth');
 
 const router = require('express').Router();
 const routerStores = require('./stores');
+const routerCustomer = require('./customer');
 
 // register
 router.get('/register', UserController.registerForm)
@@ -25,11 +26,15 @@ router.get('/', Controller.landingPage)
 //all router after this, will only run if router.use if allow next()
 router.use(isLogin);
 
+//go to store
+router.use('/stores',isSeller, routerStores),
+
+//go to customer page
+router.use('/customer', routerCustomer)
+
+
 //user Home
 router.get('/home', Controller.home) //just check if login so can gooo
-
-//go to store
-router.use('/stores',isSeller, routerStores)
 
 
 //buat logout bisa

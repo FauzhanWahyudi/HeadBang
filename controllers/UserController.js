@@ -42,7 +42,13 @@ class UserController {
                         id: user.id,
                         role: user.role,
                     }; //set session key userId dengan nilai user.id
-                    res.redirect('/')
+
+                    //direct route accoring to role
+                    if(user.role == 'seller'){
+                        res.redirect('/stores')
+                    } else {
+                        res.redirect('/home')
+                    }
                 } else {
                     res.redirect(`/login?error=${error}`) 
                 }
