@@ -1,0 +1,16 @@
+[
+    {   
+        "id": 1,
+        "email": "iniEmail.gmail.com",
+        "password": "iniPassword",
+        "role": "seller",
+        "point": 1000
+    },
+    {   
+        "id": 2,
+        "email": "iniEmail2.gmail.com",
+        "password": "password",
+        "role": "seller",
+        "point": 500
+    }
+]

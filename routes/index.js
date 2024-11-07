@@ -5,6 +5,11 @@ const { isLogin, isAdmin } = require('../middleware/auth');
 const router = require('express').Router();
 
 
+const routerStores = require('./stores');
+
+router.get('/', Controller.home)
+router.use('/stores', routerStores)
+
 // register
 router.get('/register', UserController.registerForm)
 router.post('/register', UserController.registerHandler)
