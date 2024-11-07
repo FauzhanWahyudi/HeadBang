@@ -38,7 +38,7 @@
                 <% category = [ 1, 2, 3, 4, 5] %>
                 <label>Category</label>
                 <select name="CategoryId">
-                    <option selected disabled>--SELECT--</option>
+                    <!-- <option selected disabled>--SELECT--</option> -->
                     <% category.forEach(el => { %>
                         <option value="<%= el %>" <%= data.Category.name === el ? 'selected' : '' %>><%= el %></option>
                     <% }) %>
