@@ -18,7 +18,7 @@
         </div>
         <h1 class="h1 text-center">Products List</h1>
         <div style="width: 80%; margin: auto;">
-            <div class="d-flex flex-wrap gap-3 overflow-auto justify-content-center" style="max-width: 100%; max-height: 500px;">
+            <div class="d-flex flex-wrap gap-3 overflow-auto justify-content-center" style="max-width: 100%; <%= notif && notif != 'undefined' ? 'max-height: 420px;' : 'max-height: 530px;' %>">
                   <div class="col-sm-4">
                     <div class="card">
                       <div class="image">
@@ -57,5 +57,15 @@
             </div>
         </div>
             </main>
+
+            <% if(notif && notif != 'undefined') { %>
+              <aside>
+                <div class="container-fluid">
+                   <div class="card text-center bg-info" style="width: 80%; margin: 1.5rem auto;">
+                      <h2><%= notif %></h2>
+                   </div>
+                </div>
+              </aside>
+                <% } %>
 </body>
 </html>

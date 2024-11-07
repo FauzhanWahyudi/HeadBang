@@ -7,6 +7,7 @@ class Controller {
     static async home(req,res) {
        try {
         const id = req.session.user.id;
+        const {notif} = req.query;
         let user = await User.findByPk(id,{
             include: {
                 model: Cart,
@@ -16,7 +17,7 @@ class Controller {
             },
         }); 
         let products = await Product.findAll();
-        res.render('home',{products,user})
+        res.render('home',{products,user, notif})
        } catch (error) {
         console.log(error);
         res.send(error);
