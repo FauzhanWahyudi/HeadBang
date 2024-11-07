@@ -51,7 +51,6 @@ class Controller {
                     model: Store,
                     include: {
                         model: Product,
-                        required: true,
                     }
                 }
             });
