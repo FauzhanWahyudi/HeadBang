@@ -88,6 +88,7 @@ class UserController {
     static async logout(req,res) {
         try {
             req.session.destroy(function(err) {
+                res.clearCookie('connect.sid');
                 // cannot access session here
                 if(err) res.send(err)
                     else res.redirect('/login')

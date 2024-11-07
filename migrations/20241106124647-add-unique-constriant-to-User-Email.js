@@ -12,6 +12,8 @@ module.exports = {
     await queryInterface.addConstraint('Users', {
       fields: ['email'],
       type: 'unique',
+      msg: 'Email is registered',
+      name: 'email_unique'
     })
   },
 
@@ -22,5 +24,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
+    await queryInterface.removeConstraint('Users','email_unique')
   }
 };
