@@ -46,6 +46,7 @@ class Controller {
     static async storesById(req, res) {
         try {
             const {id} = req.params;
+            const {deleted} = req.query;
             let data = await User.findByPk(id,{
                 include: {
                     model: Store,
@@ -55,7 +56,7 @@ class Controller {
                     }
                 }
             });
-            res.render('storeDetail', {data, publishedTime});
+            res.render('storeDetail', {data, publishedTime, deleted});
         } catch (error) {
             console.log(error);
             
@@ -65,7 +66,7 @@ class Controller {
 
     static async products(req, res) {
         try {
-            let { search, category } = req.query;
+            let { search, category, deleted } = req.query;
             let option = {};
             option.where = {};
 
@@ -82,7 +83,7 @@ class Controller {
                 data = await Product.findAll(option)
             }
             console.log(data);
-            res.render('listProduct', {data});
+            res.render('listProduct', {data, deleted});
         } catch (error) {
             console.log(error);            
             res.send(error);
@@ -147,7 +148,8 @@ class Controller {
                     id
                 }
             })
-            res.redirect(`/stores/${id}?deleted=${name}`);
+            res.redirect(`/stores/listProducts?deleted=${name}`);
+            // res.redirect(`/stores/${id}?deleted=${name}`);
         } catch (error) {
             res.send(error);
         }
