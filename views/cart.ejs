@@ -12,30 +12,31 @@
         <%- include('nav') %>
     </header>
     <h1 class="text-center">Shoping Cart</h1>
-
     <br>
     <br>
     <h3>On Cart Product List :</h3>
     <% totalPrice = 0 %>
     <% if (user.Carts[0].Products.length) { %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% user.Carts[0].Products.forEach(el => { %>
+        <div class="container">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td><%= el.name %></td>
-                        <td><%= el.price %></td>
+                        <th>Name</th>
+                        <th>Price</th>
                     </tr>
-                    <% totalPrice += el.price %>
-                <% }) %>
-            </tbody>
-        </table>
-             <h3 class="h3 touppercase text-center">Your Total Bill: <%= totalPrice %></h3>
+                </thead>
+                <tbody>
+                    <% user.Carts[0].Products.forEach(el => { %>
+                        <tr>
+                            <td><%= el.name %></td>
+                            <td><%= toIDR(el.price) %></td>
+                        </tr>
+                        <% totalPrice += el.price %>
+                    <% }) %>
+                </tbody>
+            </table>
+                 <h3 class="h3 touppercase text-center">Your Total Bill: <%= toIDR(totalPrice) %></h3>
+        </div>
         <% } else { %>
             <h2 class="h2 touppercase text-center">You have no products in cart</h2>
         <% } %>

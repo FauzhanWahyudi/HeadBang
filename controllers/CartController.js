@@ -1,5 +1,5 @@
-const { where } = require('sequelize');
 const { User, Store, Product, Category, Cart } = require('../models'); 
+const toIDR = require('../helpers/idr');
 class CartController {
     static async cart(req,res) {
         try {
@@ -13,7 +13,7 @@ class CartController {
                     }
                 }
             })            
-            res.render('cart', {user})
+            res.render('cart', {user,toIDR})
         } catch (error) {
             console.log(error);
             res.send(error)
