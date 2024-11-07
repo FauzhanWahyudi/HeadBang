@@ -36,29 +36,35 @@
                         <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                            <input type="email" id="form3Example3c" class="form-control" name="email" />
                             <label class="form-label" for="form3Example3c">Your Email</label>
+                            <input type="email" id="form3Example3c" class="form-control" name="email" />
                           </div>
                         </div>
       
                         <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                           <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                            <input type="password" id="form3Example4c" class="form-control" name="password"/>
                             <label class="form-label" for="form3Example4c">Password</label>
+                            <input type="password" id="form3Example4c" class="form-control" name="password"/>
                           </div>
                         </div>
       
                         <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                           <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                            <input type="text" id="form3Example4cd" class="form-control" name="role"/>
                             <label class="form-label" for="form3Example4cd">Role</label>
+                            <select name="role" id="" class="form-select">
+                              <option value="" selected disabled>--choose your role--</option>
+                              <% let role = ['customer', 'seller'] %>
+                              <% role.forEach(el => { %>
+                               <option value="<%= el %>"><%= el %></option>
+                              <% }) %>
+                            </select>
                           </div>
                         </div>
       
                         <div class="form-check d-flex justify-content-center mb-5">
-                          <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                          <input class="form-check-input me-2" type="checkbox" value="isAgree" id="form2Example3c" />
                           <label class="form-check-label" for="form2Example3">
                             I agree all statements in <a href="#!">Terms of service</a>
                           </label>

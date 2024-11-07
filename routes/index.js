@@ -1,14 +1,11 @@
 const Controller = require('../controllers/controller');
 const UserController = require('../controllers/UserController');
-const { isLogin, isAdmin } = require('../middleware/auth');
+const { isLogin, isAdmin, isSeller } = require('../middleware/auth');
 
 const router = require('express').Router();
-
-
 const routerStores = require('./stores');
 
 router.get('/', Controller.home)
-router.use('/stores', routerStores)
 
 // register
 router.get('/register', UserController.registerForm)
@@ -25,8 +22,8 @@ router.use(isLogin);
 //landing page
 router.get('/', Controller.home) //just check if login so can gooo
 
-
 //go to store
+router.use('/stores',isSeller, routerStores)
 
 
 //buat logout bisa
