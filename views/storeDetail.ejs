@@ -9,13 +9,13 @@
 <body>
     <table border="1">
         <tr>
-            <th>User</th>
+            <th>Username</th>
             <th>Store Name</th>
             <th>Total sales</th>
             <th>Total Products</th>
         </tr>
             <tr>
-                <td><%= data.email %></td>
+                <td><%= data.username %></td>
                 <td><%= data.Store.name %></td>
                 <td><%= data.Store.productSales %></td>
                 <td><%= data.Store.Products.length %></td>
@@ -25,7 +25,7 @@
     <% let products =  data.Store.Products %>
      <table>
         <thead>
-            <tr>
+            <tr class="touppercase">
                 <th>ID</th>
                 <th>Name</th>
                 <th>Description</th>
@@ -33,6 +33,7 @@
                 <th>Tags</th>
                 <th>Price</th>
                 <th>Stock</th>
+                <th>Added</th>
             </tr>
         </thead>
         <tbody>
@@ -45,6 +46,7 @@
                     <td><%= el.name %></td>
                     <td><%= el.price %></td>
                     <td><%= el.Stock %></td>
+                    <td><%= publishedTime(el.createdAt) %></td>
                 </tr>
             <% }) %>
         </tbody>

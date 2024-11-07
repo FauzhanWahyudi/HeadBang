@@ -1,3 +1,4 @@
+const publishedTime = require('../helpers/publishedTime');
 const { User, Store, Product, Category } = require('../models'); 
 const category = require('../models/category');
 
@@ -49,7 +50,7 @@ class Controller {
                 }
             });
             console.log(data)
-            res.render('storeDetail', {data});
+            res.render('storeDetail', {data, publishedTime});
         } catch (error) {
             console.log(error);
             
