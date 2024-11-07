@@ -38,7 +38,7 @@ class UserController {
                 const checkPassword = bcrypt.compareSync(password, user.password);
                 if(checkPassword){
                     //kalo berhasil
-                    req.session.user ={ 
+                    req.session.user = { 
                         id: user.id,
                         role: user.role,
                     }; //set session key userId dengan nilai user.id
@@ -139,7 +139,7 @@ class UserController {
                 res.clearCookie('connect.sid');
                 // cannot access session here
                 if(err) res.send(err)
-                    else res.redirect('/login')
+                    else res.redirect('/')
               })
         } catch (error) {
                 console.log(error);

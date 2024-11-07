@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+<body>
+    <main style="padding: 10px;">
+        <div class="container" style="width: 60%;">
+            <div class="card text-center text-uppercase">
+                <div class="card-header ">
+                    <h1>Please Use THIS QR to Finished Your Payment</h1>
+                </div>
+
+                <div class="card-text">
+                    <!-- qr regenerate -->
+                    <pre style="font-size: 0.5rem;"><%= qr %></pre>
+                </div>
+            
+                <div class="card-footer">
+                    <form action="/customer/<%= userId %>/cart/<%= cart.id %>/checkout/success" method="post">
+                        <button type="submit" class=" btn btn-success" name="price" value="<%= cart.price %>">Confirm Payment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
