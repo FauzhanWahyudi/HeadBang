@@ -5,8 +5,6 @@ const { isLogin, isAdmin, isSeller } = require('../middleware/auth');
 const router = require('express').Router();
 const routerStores = require('./stores');
 
-router.get('/', Controller.home)
-
 // register
 router.get('/register', UserController.registerForm)
 router.post('/register', UserController.registerHandler)
@@ -15,12 +13,11 @@ router.get('/login', UserController.loginForm)
 router.post('/login', UserController.loginHandler)
 
 
-
 //all router after this, will only run if router.use if allow next()
 router.use(isLogin);
 
 //landing page
-router.get('/', Controller.home) //just check if login so can gooo
+router.get('/',Controller.home) //just check if login so can gooo
 
 //go to store
 router.use('/stores',isSeller, routerStores)
