@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+</head>
+<body>
+    <p>
+        <a href="/stores/listProducts=">ALL</a>
+        <a href="/stores/listProducts=Category1">Category 1</a>
+        <a href="/stores/listProducts=Category2">Category 2</a>
+        <a href="/stores/listProducts=Category3">Category 3</a>
+        <a href="/stores/listProducts=Category4">Category 4</a>
+        <a href="/stores/listProducts=Category5">Category 5</a>
+    </p>
+    <table border="1">
+        <tr>
+            <th>IMAGE</th>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Type</th>
+            <th>Store</th>
+        </tr>
+        <% data.forEach(el => { %>
+            <tr>
+                <td><img src="" alt="INI GAMBAR"></td>
+                <td><%= el.name %></td>
+                <td><%= el.description %></td>
+                <td><%= el.price %></td>
+                <td><%= el.stock %></td>
+                <td><%= el.CategoryId %></td>
+                <td><%= el.StoreId %></td>
+            </tr>
+        <% }) %>
+    </table>
+</body>
+</html>

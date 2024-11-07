@@ -3,40 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 </head>
 <body>
     <center>
         <%= JSON.stringify(data) %>
-        <form action="/stores/add" method="post">
+        <form action="/stores/<%= data.id %>/edit" method="post">
             <p>
                 <label for="productName">Product Name</label>
-                <input type="text" name="name" id="productName">
+                <input type="text" name="name" id="productName" value="<%= data.name %>">
             </p>
             <p>
                 <label for="">Description</label>
-                <input type="text" name="description" id="">
+                <input type="text" name="description" id="" value="<%= data.description %>">
             </p>
             <p>
                 <label for="">Price</label>
-                <input type="number" name="price" id="">
+                <input type="number" name="price" id="" value="<%= data.price %>">
             </p>
             <p>
                 <label for="">Stock</label>
-                <input type="number" name="stock" id="">
+                <input type="number" name="stock" id="" value="<%= data.stock %>">
             </p>
             <p>
+                <% category = [ 1, 2, 3, 4, 5] %>
                 <label>Category</label>
                 <select name="CategoryId">
                     <option selected disabled>--SELECT--</option>
-                    <% data.forEach(el => { %>
-                        <option value="<%= el.id %>"><%= el.name %></option>
+                    <% category.forEach(el => { %>
+                        <option value="<%= el %>" <%= data.Category.name === el ? 'selected' : '' %>><%= el %></option>
                     <% }) %>
                 </select>
             </p>
             <button type="SUBMIT">SUBMIT</button>
         </form>
     </center>
+</body>
+</html>
 </body>
 </html>

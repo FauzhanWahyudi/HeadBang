@@ -1,4 +1,5 @@
-const { User, Store, Product } = require('../models'); 
+const { User, Store, Product, Category } = require('../models'); 
+const category = require('../models/category');
 
 
 class Controller {
@@ -6,8 +7,7 @@ class Controller {
        try {
         res.render('home')
        } catch (error) {
-        console.log(error)
-        res.error(error)
+        res.error(error);
        } 
     }
 
@@ -27,8 +27,18 @@ class Controller {
                 include: {
                     model: Store
                 }
-            })
+            });
             res.render('stores', {data});
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async products(req, res) {
+        try {
+            let {category} = req.query;
+            let data = await Product.getProductsByCategory(category);
+            res.render('listProduct', {data});
         } catch (error) {
             res.send(error);
         }
@@ -36,23 +46,48 @@ class Controller {
 
     static async getAdd(req, res) {
         try {
-            let data = await Product.findAll()
+            let data = await Category.findAll();
             res.render('add', {data});
         } catch (error) {
-            console.log(error);
-            
             res.send(error);
         }
     }
 
     static async postAdd(req, res) {
         try {
-            let {name, description, price, stock, CategoryId} = req.body;
+            const {name, description, price, stock, CategoryId} = req.body;
             await Product.create({name, description, price, stock, CategoryId});
-            res.redirect('stores');
+            res.redirect('/stores');
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async getEdit(req, res) {
+        try {
+            let {id} = req.params;
+            let data = await Product.findByPk(id, {
+                include : {
+                    model : Category
+                }
+            });
+            res.render('edit', {data});
+        } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async postEdit(req, res) {
+        try {
+            const {id} = req.params;
+            const {name, description, price, stock, CategoryId} = req.body;
+            await Product.update({name, description, price, stock, CategoryId}, {
+                where : {id}
+            });
+            res.redirect('/stores/listProducts');
         } catch (error) {
             console.log(error);
-
+            
             res.send(error);
         }
     }

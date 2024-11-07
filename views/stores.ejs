@@ -7,14 +7,12 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 </head>
 <body>
-    <%= JSON.stringify(data) %>
     <table border="1">
         <tr>
             <th>User</th>
             <th>Store Name</th>
             <th>Total sales</th>
         </tr>
-        
         <% data.forEach(el => { %>
             <tr>
                 <td><%= el.email %></td>
@@ -22,6 +20,7 @@
                 <td><%= el.Store.productSales %></td>
             </tr>
         <% }) %>
+        
     </table>
 </body>
 </html>
