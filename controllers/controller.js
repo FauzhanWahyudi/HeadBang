@@ -9,9 +9,7 @@ class Controller {
         const id = req.session.user.id;
         let user = await User.findByPk(id,{
             include: Cart
-        });
-        console.log(user);
-        
+        });        
         let products = await Product.findAll();
         res.render('home',{products,user})
        } catch (error) {
@@ -57,7 +55,6 @@ class Controller {
                     }
                 }
             });
-            console.log(data)
             res.render('storeDetail', {data, publishedTime});
         } catch (error) {
             console.log(error);

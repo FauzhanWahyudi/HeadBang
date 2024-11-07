@@ -7,15 +7,13 @@ class CartController {
             let user = await User.findByPk(userId,{
                 include: {
                     model: Cart,
-                    required: true,
+                    through: {attributes: []},
                     include:{
-                        Product
+                        model: Product
                     }
                 }
-            })
-            res.send(user);
-            
-            // res.render('cart', {user})
+            })            
+            res.render('cart', {user})
         } catch (error) {
             console.log(error);
             res.send(error)
