@@ -14,6 +14,10 @@ router.post('/regisStore', UserController.regisStoreHandler)
 router.get('/login', UserController.loginForm)
 router.post('/login', UserController.loginHandler)
 
+//verification email
+router.get('/verify/:email', UserController.verify)
+
+
 //landing page 
 router.get('/', Controller.landingPage)
 
