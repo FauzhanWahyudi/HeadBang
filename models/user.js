@@ -53,7 +53,8 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    point: DataTypes.INTEGER
+    point: DataTypes.INTEGER,
+    isValidate: DataTypes.BOOLEAN
   }, {
     hooks:{
       beforeCreate: (user) =>{
@@ -62,6 +63,7 @@ module.exports = (sequelize, DataTypes) => {
         let salt = bcrypt.genSaltSync(10); //kasih salt
         //ganti password dengan hash
         user.password = bcrypt.hashSync(user.password, salt);
+        user.isValidate = false;
       }
     },
     sequelize,
