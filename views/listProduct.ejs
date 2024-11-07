@@ -6,6 +6,9 @@
     <title>Products</title>
 </head>
 <body>
+    <% if (deleted) { %>
+        <p>Product <%= deleted %> removed</p>
+    <% } %>
     <form action="" method="get">
         <input type="text" name="search" placeholder="search">
         <button type="submit">Search</button>

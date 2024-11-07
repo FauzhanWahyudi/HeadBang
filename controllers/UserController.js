@@ -122,7 +122,7 @@ class UserController {
         } catch (error) {
             if(error.name == "SequelizeValidationError"){
                 let err = error.errors.map(el => el.message)
-                res.redirect(`/register?error=${err}`) 
+                res.redirect(`/regisStore?error=${err}`) 
             }else if (error.name = "SequelizeUniqueConstraintError") {
                 let err = 'Store name is not available'
                 res.redirect(`/regisStore?error=${err}`) 
