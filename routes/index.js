@@ -8,16 +8,21 @@ const routerStores = require('./stores');
 // register
 router.get('/register', UserController.registerForm)
 router.post('/register', UserController.registerHandler)
+router.get('/regisStore', UserController.regisStore)
+router.post('/regisStore', UserController.regisStoreHandler)
 // login
 router.get('/login', UserController.loginForm)
 router.post('/login', UserController.loginHandler)
+
+//landing page 
+router.get('/', Controller.landingPage)
 
 
 //all router after this, will only run if router.use if allow next()
 router.use(isLogin);
 
-//landing page
-router.get('/',Controller.home) //just check if login so can gooo
+//user Home
+router.get('/home', Controller.home) //just check if login so can gooo
 
 //go to store
 router.use('/stores',isSeller, routerStores)

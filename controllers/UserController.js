@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const {User} = require('../models');
+const {User, Store} = require('../models');
 
 
 class UserController {
@@ -72,8 +72,40 @@ class UserController {
         try {
             //add user to db
             const {email, password, role} = req.body;
-            await User.create({email, password, role})
-            res.redirect('/login') 
+            let {id} = await User.create({email, password, role})            
+            if(role == 'seller') {
+                res.redirect(`/regisStore?UserId=${id}`)
+            } else {
+                res.redirect('/login') 
+            }
+        } catch (error) {
+            if(error.name == "SequelizeValidationError"){
+                let err = error.errors.map(el => el.message)
+                res.redirect(`/register?error=${err}`) 
+            } else {
+                console.log(error);
+                res.send(error)
+            }
+        }
+    }
+
+    static async regisStore(req,res) {
+        try {
+            let {error, UserId} = req.query;
+            res.render('regisStore',  {error, UserId} )
+        } catch (error) {
+                console.log(error);
+                res.send(error)
+        }
+    }
+
+    static async regisStoreHandler(req,res) {
+        try {
+            //add user to db
+            const {UserId} = req.query;
+            const {name} = req.body;
+            await Store.create({name, UserId})
+                res.redirect('/login') 
         } catch (error) {
             if(error.name == "SequelizeValidationError"){
                 let err = error.errors.map(el => el.message)
