@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const {User, Store} = require('../models');
+const { mailOptions, sendVerification } = require('../helpers/emailVerification');
+
 
 
 class UserController {
@@ -40,7 +42,13 @@ class UserController {
                         id: user.id,
                         role: user.role,
                     }; //set session key userId dengan nilai user.id
-                    res.redirect('/')
+
+                    //direct route accoring to role
+                    if(user.role == 'seller'){
+                        res.redirect('/stores')
+                    } else {
+                        res.redirect('/home')
+                    }
                 } else {
                     res.redirect(`/login?error=${error}`) 
                 }
@@ -72,7 +80,12 @@ class UserController {
         try {
             //add user to db
             const {email, password, role} = req.body;
-            let {id} = await User.create({email, password, role})            
+            let {id} = await User.create({email, password, role})  
+
+            //send verification email
+            let emailVerification = mailOptions(email);
+            sendVerification(emailVerification);
+
             if(role == 'seller') {
                 res.redirect(`/regisStore?UserId=${id}`)
             } else {
@@ -110,6 +123,9 @@ class UserController {
             if(error.name == "SequelizeValidationError"){
                 let err = error.errors.map(el => el.message)
                 res.redirect(`/register?error=${err}`) 
+            }else if (error.name = "SequelizeUniqueConstraintError") {
+                let err = 'Store name is not available'
+                res.redirect(`/regisStore?error=${err}`) 
             } else {
                 console.log(error);
                 res.send(error)
@@ -125,6 +141,18 @@ class UserController {
                 if(err) res.send(err)
                     else res.redirect('/login')
               })
+        } catch (error) {
+                console.log(error);
+                res.send(error)
+        }
+    }
+
+    static async verify(req,res) {
+        try {
+            const {email} = req.params;
+            let user = await User.findOne({email})
+            user.update({isValidate: true})
+            res.redirect(`/?veriy=Success`)
         } catch (error) {
                 console.log(error);
                 res.send(error)

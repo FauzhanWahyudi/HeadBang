@@ -1,5 +1,7 @@
 'use strict';
 
+const { sequelize } = require('../models');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -9,11 +11,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addConstraint('Users', {
-      fields: ['email'],
-      type: 'unique',
-      name: 'email_unique'
-    })
+    await queryInterface.addColumn('Users', 'isValidate', Sequelize.BOOLEAN)
   },
 
   async down (queryInterface, Sequelize) {
@@ -23,6 +21,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeConstraint('Users','email_unique')
+    await queryInterface.removeColumn('Users', 'isValidate')
   }
 };

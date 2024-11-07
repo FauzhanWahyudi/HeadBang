@@ -9,10 +9,10 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addConstraint('Users', {
-      fields: ['email'],
+    await queryInterface.addConstraint('Stores', {
+      fields: ['name'],
       type: 'unique',
-      name: 'email_unique'
+      name: 'name_product_unique'
     })
   },
 
@@ -21,8 +21,8 @@ module.exports = {
      * Add reverting commands here.
      *
      * Example:
-     * await queryInterface.dropTable('users');
+     * await queryInterface.dropTable('Stores');
      */
-    await queryInterface.removeConstraint('Users','email_unique')
+    await queryInterface.removeConstraint('Stores','name_product_unique')
   }
 };

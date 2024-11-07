@@ -13,7 +13,8 @@ class Controller {
 
     static async landingPage(req,res) {
         try {
-         res.render('landingPage')
+         let {verify} = req.query;
+         res.render('landingPage', {verify})
         } catch (error) {
          console.log(error)
          res.error(error)
