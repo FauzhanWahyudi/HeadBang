@@ -21,13 +21,13 @@ class UserController {
         }
     }
 
+    //check if emial is registered
+    // if true, then compare plain password with hased password
+        //redirect to home
+    // if false, error can't go to home
+    //add user to db
     static async loginHandler(req,res) {
         try {
-            //check if emial is registered
-            // if true, then compare plain password with hased password
-                //redirect to home
-            // if false, error can't go to home
-            //add user to db
             const {email, password} = req.body;
             let user = await User.findOne({where: {
                 email
@@ -45,7 +45,7 @@ class UserController {
 
                     //direct route accoring to role
                     if(user.role == 'seller'){
-                        res.redirect('/stores')
+                        res.redirect(`/stores/${user.id}`)
                     } else {
                         res.redirect('/home')
                     }
@@ -118,7 +118,7 @@ class UserController {
             const {UserId} = req.query;
             const {name} = req.body;
             await Store.create({name, UserId})
-                res.redirect('/login') 
+            res.redirect('/login') 
         } catch (error) {
             if(error.name == "SequelizeValidationError"){
                 let err = error.errors.map(el => el.message)

@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Product.belongsTo(models.Category);
+      Product.belongsTo(models.Store);
     }
 
     //  >>>>> Sorting Product By Category <<<<<

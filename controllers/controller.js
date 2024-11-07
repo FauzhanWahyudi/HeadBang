@@ -25,11 +25,34 @@ class Controller {
         try {
             let data = await User.findAll({
                 include: {
-                    model: Store
+                    model: Store,
+                    required: true,
                 }
             });
+            console.log(data);
             res.render('stores', {data});
         } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async storesById(req, res) {
+        try {
+            const {id} = req.params;
+            let data = await User.findByPk(id,{
+                include: {
+                    model: Store,
+                    include: {
+                        model: Product,
+                        required: true,
+                    }
+                }
+            });
+            console.log(data)
+            res.render('storeDetail', {data});
+        } catch (error) {
+            console.log(error);
+            
             res.send(error);
         }
     }
@@ -46,8 +69,9 @@ class Controller {
 
     static async getAdd(req, res) {
         try {
+            const {id} = req.params;
             let data = await Category.findAll();
-            res.render('add', {data});
+            res.render('add', {data, id});
         } catch (error) {
             res.send(error);
         }
@@ -55,9 +79,11 @@ class Controller {
 
     static async postAdd(req, res) {
         try {
+            const {id} = req.params;
             const {name, description, price, stock, CategoryId} = req.body;
-            await Product.create({name, description, price, stock, CategoryId});
-            res.redirect('/stores');
+            // console.log(req.body)
+            await Product.create({name, description, price, stock, CategoryId, StoreId: id});
+            res.redirect(`/stores/${id}`);
         } catch (error) {
             res.send(error);
         }
