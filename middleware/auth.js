@@ -1,5 +1,5 @@
 const isLogin = (req, res, next) => {
-    console.log(req.session)
+    // console.log(req.session)
     if(!req.session || !req.session.user || !req.session.user.id){ //sebelumnya salah kondisi
         const error = 'Please Login First'
         res.redirect(`/login?error=${error}`)

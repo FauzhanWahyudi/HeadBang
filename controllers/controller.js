@@ -11,6 +11,15 @@ class Controller {
        } 
     }
 
+    static async landingPage(req,res) {
+        try {
+         res.render('landingPage')
+        } catch (error) {
+         console.log(error)
+         res.error(error)
+        } 
+     }
+
     static async stores(req, res) {
         try {
             let data = await User.findAll({

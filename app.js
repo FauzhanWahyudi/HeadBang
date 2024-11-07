@@ -3,10 +3,15 @@ const router = require('./routes');
 const session = require('express-session')
 const app = express()
 const port = 3000
+const path = require('path')
 
 
 app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs')
+app.use(
+  express.static(path.join(__dirname, "node_modules/bootstrap/dist/"))
+);
+app.use(express.static('public'))
 
 //check session
 app.use(session({
