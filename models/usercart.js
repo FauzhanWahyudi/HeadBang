@@ -20,5 +20,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'UserCart',
   });
-  return UserCarts;
+  return UserCart;
 };

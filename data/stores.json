@@ -1,0 +1,14 @@
+[
+    {   
+        "id": 1,
+        "name": "Toko Ini",
+        "productSales": 5,
+        "UserId": 1
+    },
+    {   
+        "id": 2,
+        "name": "Toko Itu",
+        "productSales": 3,
+        "UserId": 2
+    }
+]
