@@ -24,7 +24,7 @@ router.get('/', Controller.landingPage)
 
 
 //all router after this, will only run if router.use if allow next()
-// router.use(isLogin);
+router.use(isLogin);
 
 //go to store
 // router.use('/stores',isSeller, routerStores),

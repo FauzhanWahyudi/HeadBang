@@ -117,7 +117,7 @@ class UserController {
             //add user to db
             const {UserId} = req.query;
             const {name} = req.body;
-            await Store.create({name, UserId})
+            let add = await Store.create({name, UserId})
             res.redirect('/login') 
         } catch (error) {
             if(error.name == "SequelizeValidationError"){

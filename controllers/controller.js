@@ -52,10 +52,10 @@ class Controller {
                     model: Store,
                     include: {
                         model: Product,
-                        required: true,
                     }
                 }
             });
+            console.log(data);
             res.render('storeDetail', {data, publishedTime, deleted});
         } catch (error) {
             console.log(error);

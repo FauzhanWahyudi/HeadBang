@@ -16,7 +16,7 @@
     <br>
     <h3>On Cart Product List :</h3>
     <% totalPrice = 0 %>
-    <% if (user.Carts[0].Products.length) { %>
+    <% if (user.Carts[0].Products && user.Carts[0].Products.length) { %>
         <div class="container">
             <table class="table">
                 <thead>
