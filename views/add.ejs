@@ -7,7 +7,8 @@
 </head>
 <body>
     <center>
-        <form action="/add" method="post">
+        <%= JSON.stringify(data) %>
+        <form action="/stores/add" method="post">
             <p>
                 <label for="productName">Product Name</label>
                 <input type="text" name="name" id="productName">
@@ -29,8 +30,8 @@
                 <label>Category</label>
                 <select name="CategoryId">
                     <option selected disabled>--SELECT--</option>
-                    <% category.forEach(el => { %>
-                        <option value="<%= el %>"><%= el %></option>
+                    <% data.forEach(el => { %>
+                        <option value="<%= el.id %>"><%= el.name %></option>
                     <% }) %>
                 </select>
             </p>

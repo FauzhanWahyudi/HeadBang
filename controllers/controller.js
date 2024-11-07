@@ -1,4 +1,5 @@
-const { User, Store, Product } = require('../models'); 
+const { User, Store, Product, Category } = require('../models'); 
+const category = require('../models/category');
 
 
 class Controller {
@@ -6,8 +7,7 @@ class Controller {
        try {
         res.render('home')
        } catch (error) {
-        console.log(error)
-        res.error(error)
+        res.error(error);
        } 
     }
 
@@ -17,20 +17,30 @@ class Controller {
                 include: {
                     model: Store
                 }
-            })
+            });
             res.render('stores', {data});
         } catch (error) {
             res.send(error);
         }
     }
 
-    static async getAdd(req, res) {
+    static async products(req, res) {
         try {
-            let data = await Product.findAll()
-            res.render('add', {data});
+            let {category} = req.query;
+            let data = await Product.getProductsByCategory(category);
+            res.render('listProduct', {data});
         } catch (error) {
             console.log(error);
             
+            res.send(error);
+        }
+    }
+
+    static async getAdd(req, res) {
+        try {
+            let data = await Category.findAll();
+            res.render('add', {data});
+        } catch (error) {
             res.send(error);
         }
     }
@@ -39,10 +49,8 @@ class Controller {
         try {
             let {name, description, price, stock, CategoryId} = req.body;
             await Product.create({name, description, price, stock, CategoryId});
-            res.redirect('stores');
+            res.redirect('/stores');
         } catch (error) {
-            console.log(error);
-
             res.send(error);
         }
     }
