@@ -16,7 +16,9 @@
     <br>
     <h3>On Cart Product List :</h3>
     <% totalPrice = 0 %>
-    <% if (user.Carts[0].Products && user.Carts[0].Products.length) { %>
+
+    <% if (products.length) { %>
+
         <div class="container">
             <table class="table">
                 <thead>
@@ -26,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% user.Carts[0].Products.forEach(el => { %>
+                    <% products.forEach(el => { %>
                         <tr>
                             <td><%= el.name %></td>
                             <td><%= toIDR(el.price) %></td>
