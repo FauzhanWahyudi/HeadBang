@@ -8,8 +8,10 @@
 </head>
 <body>
     <center>
-        <%= JSON.stringify(data) %>
-        <form action="/stores/add" method="post">
+
+        <h1>Add product to your store:</h1>
+        <br>
+        <form action="/stores/<%= id %>/add" method="post">
             <p>
                 <label for="productName">Product Name</label>
                 <input type="text" name="name" id="productName">

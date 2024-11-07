@@ -1,13 +1,20 @@
-const { User, Store, Product, Category } = require('../models'); 
 const { Op } = require('sequelize');
+const publishedTime = require('../helpers/publishedTime');
+const { User, Store, Product, Cart, Category } = require('../models'); 
 
 
 class Controller {
     static async home(req,res) {
        try {
-        res.render('home')
+        const id = req.session.user.id;
+        let user = await User.findByPk(id,{
+            include: Cart
+        });        
+        let products = await Product.findAll();
+        res.render('home',{products,user})
        } catch (error) {
-        res.error(error);
+        console.log(error);
+        res.send(error);
        } 
     }
 
@@ -25,11 +32,33 @@ class Controller {
         try {
             let data = await User.findAll({
                 include: {
-                    model: Store
+                    model: Store,
+                    required: true,
                 }
             });
+            console.log(data);
             res.render('stores', {data});
         } catch (error) {
+            res.send(error);
+        }
+    }
+
+    static async storesById(req, res) {
+        try {
+            const {id} = req.params;
+            let data = await User.findByPk(id,{
+                include: {
+                    model: Store,
+                    include: {
+                        model: Product,
+                        required: true,
+                    }
+                }
+            });
+            res.render('storeDetail', {data, publishedTime});
+        } catch (error) {
+            console.log(error);
+            
             res.send(error);
         }
     }
@@ -62,8 +91,9 @@ class Controller {
 
     static async getAdd(req, res) {
         try {
+            const {id} = req.params;
             let data = await Category.findAll();
-            res.render('add', {data});
+            res.render('add', {data, id});
         } catch (error) {
             res.send(error);
         }
@@ -71,9 +101,11 @@ class Controller {
 
     static async postAdd(req, res) {
         try {
+            const {id} = req.params;
             const {name, description, price, stock, CategoryId} = req.body;
-            await Product.create({name, description, price, stock, CategoryId});
-            res.redirect('/stores');
+            // console.log(req.body)
+            await Product.create({name, description, price, stock, CategoryId, StoreId: id});
+            res.redirect(`/stores/${id}`);
         } catch (error) {
             res.send(error);
         }

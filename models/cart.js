@@ -11,12 +11,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Cart.belongsToMany(models.User, {through: 'UserCarts'})
+      Cart.belongsToMany(models.Product, {through: 'CartProducts'})
     }
   }
   Cart.init({
     price: DataTypes.INTEGER,
-    bonus: DataTypes.INTEGER
+    bonus: DataTypes.INTEGER,
+    isDone: DataTypes.BOOLEAN,
   }, {
+    hooks:{
+      beforeCreate: (cart) => {
+        cart.isDone = false
+      },
+    },
     sequelize,
     modelName: 'Cart',
   });
