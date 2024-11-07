@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Product.belongsTo(models.Category);
       Product.belongsTo(models.Store);
+      Product.belongsToMany(models.Cart, {through: 'CartProducts'})
+      Product.belongsToMany(models.Tag, {through: 'TagProducts'})
     }
 
     //  >>>>> Sorting Product By Category <<<<<
