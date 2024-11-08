@@ -160,14 +160,18 @@ class Controller {
     static async delete(req, res) {
         try {
             const {id} = req.params;
-            const {name} = await Product.findByPk(id);
-            await Product.destroy({
-                where : {
-                    id
+            const product= await Product.findByPk(id,{
+                include: {
+                    model: Store
                 }
-            })
+            });
+            console.log('111111111111111', product);
+            const name = product.name
+            const userId = product.Store.UserId
+            await product.destroy({})
+            
             // res.redirect(`/stores/listProducts?deleted=${name}`);
-            res.redirect(`/stores/${id}?deleted=${name}`);
+            res.redirect(`/stores/${userId}?deleted=${name}`);
         } catch (error) {
             res.send(error);
         }
