@@ -6,48 +6,51 @@
     <title>Products</title>
 </head>
 <body>
-    <% if (deleted) { %>
-        <h1 style="color: red;font-weight: bold; text-transform: uppercase;">Product "<%= deleted %>" removed</h1>
-    <% } %>
-    <form action="" method="get">
-        <input type="text" name="search" placeholder="search">
-        <button type="submit">Search</button>
-    </form>
+    <%- include('partial/_navbar', {userId}) %>
+    <center>
+        <% if (deleted) { %>
+            <h1 style="color: red;font-weight: bold; text-transform: uppercase;">Product "<%= deleted %>" removed</h1>
+        <% } %>
+        <form action="" method="get">
+            <input type="text" name="search" placeholder="search">
+            <button type="submit">Search</button>
+        </form>
 
-    <p>
-        <a href="/stores/listProducts?category=">ALL</a>
-        <a href="/stores/listProducts?category=1">Category 1</a>
-        <a href="/stores/listProducts?category=2">Category 2</a>
-        <a href="/stores/listProducts?category=3">Category 3</a>
-        <a href="/stores/listProducts?category=4">Category 4</a>
-        <a href="/stores/listProducts?category=5">Category 5</a>
-    </p>
-    <table border="1">
-        <tr>
-            <th>IMAGE</th>
-            <th>Product Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Type</th>
-            <th>Store</th>
-            <th>Action</th>
-        </tr>
-        <% data.forEach(el => { %>
+        <p>
+            <a href="/stores/listProducts?category=">ALL</a>
+            <a href="/stores/listProducts?category=1">Category 1</a>
+            <a href="/stores/listProducts?category=2">Category 2</a>
+            <a href="/stores/listProducts?category=3">Category 3</a>
+            <a href="/stores/listProducts?category=4">Category 4</a>
+            <a href="/stores/listProducts?category=5">Category 5</a>
+        </p>
+        <table border="1">
             <tr>
-                <td><img src="" alt="INI GAMBAR"></td>
-                <td><%= el.name %></td>
-                <td><%= el.description %></td>
-                <td><%= el.price %></td>
-                <td><%= el.stock %></td>
-                <td><%= el.CategoryId %></td>
-                <td><%= el.StoreId %></td>
-                <td>
-                    <a href="/stores/<%= el.id %>/edit">EDIT</a>
-                    <a href="/stores/<%= el.id %>/delete">DELETE</a>
-                </td>
+                <th>IMAGE</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Type</th>
+                <th>Store</th>
+                <th>Action</th>
             </tr>
-        <% }) %>
-    </table>
+            <% data.forEach(el => { %>
+                <tr>
+                    <td><img src="" alt="INI GAMBAR"></td>
+                    <td><%= el.name %></td>
+                    <td><%= el.description %></td>
+                    <td><%= el.price %></td>
+                    <td><%= el.stock %></td>
+                    <td><%= el.CategoryId %></td>
+                    <td><%= el.StoreId %></td>
+                    <td>
+                        <a href="/stores/<%= el.id %>/edit">EDIT</a>
+                        <a href="/stores/<%= el.id %>/delete">DELETE</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+    </center>
 </body>
 </html>

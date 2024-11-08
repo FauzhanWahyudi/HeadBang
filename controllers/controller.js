@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 const publishedTime = require('../helpers/publishedTime');
 const { User, Store, Product, Cart, Category } = require('../models'); 
 
@@ -19,7 +19,7 @@ class Controller {
         let products = await Product.findAll();
         res.render('home',{products,user, notif})
        } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.send(error);
        } 
     }
@@ -42,8 +42,9 @@ class Controller {
                     required: true,
                 }
             });
+            let userId = req.session.user.id;
             console.log(data);
-            res.render('stores', {data});
+            res.render('stores', {data, userId});
         } catch (error) {
             res.send(error);
         }
@@ -62,7 +63,14 @@ class Controller {
                 }
             });
             console.log(data);
-            res.render('storeDetail', {data, publishedTime, deleted});
+            if(!data.Store){
+                res.redirect('/stores/')
+            } else {
+
+                const userId = data.id
+                // console.log(data.Store);
+                res.render('storeDetail', {data, publishedTime, deleted, userId});
+            }            
         } catch (error) {
             console.log(error);
             
@@ -88,8 +96,9 @@ class Controller {
             } else {
                 data = await Product.findAll(option)
             }
-            console.log(data);
-            res.render('listProduct', {data, deleted});
+            // console.log(data);
+            let userId = req.session.user.id;
+            res.render('listProduct', {data, deleted, userId});
         } catch (error) {
             console.log(error);            
             res.send(error);
@@ -109,11 +118,14 @@ class Controller {
     static async postAdd(req, res) {
         try {
             const {id} = req.params;
+            let store = await Store.findOne({where: {UserId:id}})
+            
             const {name, description, price, stock, CategoryId} = req.body;
             // console.log(req.body)
-            await Product.create({name, description, price, stock, CategoryId, StoreId: id});
+            await Product.create({name, description, price, stock, CategoryId, StoreId: store.id});
             res.redirect(`/stores/${id}`);
         } catch (error) {
+            console.log(error);
             res.send(error);
         }
     }

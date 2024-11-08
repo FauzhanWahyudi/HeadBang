@@ -1,0 +1,89 @@
+<!-- Navbar -->
+<style>
+  /* Navbar styling */
+  .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 10px 20px;
+      font-family: Arial, sans-serif;
+  }
+
+  /* Logo styling */
+  .navbar .logo {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+  }
+
+  /* Navbar links styling */
+  .navbar .nav-links {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+  }
+
+  /* Individual link styling */
+  .navbar .nav-links li {
+      margin: 0 15px;
+  }
+
+  /* Link appearance */
+  .navbar .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 8px 12px;
+      transition: background-color 0.3s;
+  }
+
+  /* Hover effect for links */
+  .navbar .nav-links a:hover {
+      background-color: #555;
+      border-radius: 4px;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+      .navbar .nav-links {
+          flex-direction: column;
+          display: none;
+      }
+      .navbar .menu-icon {
+          display: inline-block;
+          color: white;
+          font-size: 24px;
+          cursor: pointer;
+      }
+      .navbar.active .nav-links {
+          display: flex;
+          position: absolute;
+          top: 50px;
+          left: 0;
+          width: 100%;
+          background-color: #333;
+          z-index: 1;
+      }
+  }
+</style>
+
+<div class="navbar">
+  <a href="#" class="logo">Head Bang</a>
+  <ul class="nav-links">
+      <li><a href="/stores/<%= userId %>">My store</a></li>
+      <li><a href="/stores">List Stores</a></li>
+      <li><a href="/stores/listProducts">List Product</a></li>
+      <li><a href="/logout" style="color: red;">Logout</a></li>
+  </ul>
+  <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+</div>
+
+<!-- Script for toggling menu on small screens -->
+<script>
+  function toggleMenu() {
+      document.querySelector('.navbar').classList.toggle('active');
+  }
+</script>

@@ -3,59 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stores</title>
+    <title>Stores Detail</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 </head>
 <body>
-
+    <center>
+    <%- include('partial/_navbar', {userId}) %>
     <% if (deleted) { %>
-        <h1 style="color: red;font-weight: bold; text-transform: uppercase;">Product "<%= deleted %>" removed</h1>
+        <h1 style="color: red; font-weight: bold; text-transform: uppercase;">Product "<%= deleted %>" removed</h1>
     <% } %>
 
-    <table border="1">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+
+    <table>
         <tr>
             <th>Username</th>
             <th>Store Name</th>
-            <th>Total sales</th>
+            <th>Total Sales</th>
             <th>Total Products</th>
         </tr>
-            <tr>
-                <td><%= data.username %></td>
-                <td><%= data.Store.name %></td>
-                <td><%= data.Store.productSales %></td>
-                <td><%= data.Store.Products.length %></td>
-            </tr>
+        <tr>
+            <td><%= data.username %></td>
+            <td><%= data.Store.name %></td>
+            <td><%= data.Store.productSales %></td>
+            <td><%= data.Store.Products.length %></td>
+        </tr>
     </table>
+    <a href="/stores/<%= userId %>/add">Add Product</a>
     <% if (data.Store.Products.length) { %>
-    <% let products =  data.Store.Products %>
-     <table>
-        <thead>
-            <tr class="touppercase">
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Categories</th>
-                <th>Tags</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Added</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% products.forEach(el => { %>
+        <% let products = data.Store.Products %>
+        <table>
+            <thead>
                 <tr>
-                    <td><%= el.id %></td>
-                    <td><%= el.name %></td>
-                    <td><%= el.description %></td>
-                    <td><%= el.name %></td>
-                    <td><%= el.name %></td>
-                    <td><%= el.price %></td>
-                    <td><%= el.Stock %></td>
-                    <td><%= publishedTime(el.createdAt) %></td>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Categories</th>
+                    <th>Tags</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Added</th>
                 </tr>
-            <% }) %>
-        </tbody>
-     </table>
+            </thead>
+            <tbody>
+                <% products.forEach(el => { %>
+                    <tr>
+                        <td><%= el.id %></td>
+                        <td><%= el.name %></td>
+                        <td><%= el.description %></td>
+                        <td><%= el.categories ? el.categories.join(', ') : '' %></td>
+                        <td><%= el.tags ? el.tags.join(', ') : '' %></td>
+                        <td><%= el.price %></td>
+                        <td><%= el.Stock %></td>
+                        <td><%= publishedTime(el.createdAt) %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
     <% } %>
+</center>
+
 </body>
 </html>
