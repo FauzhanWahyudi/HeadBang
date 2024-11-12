@@ -7,20 +7,23 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 </head>
 <body>
-    <table border="1">
-        <tr>
-            <th>Username</th>
-            <th>Store Name</th>
-            <th>Total sales</th>
-        </tr>
-        <% data.forEach(el => { %>
+    <center>
+        <%- include('partial/_navbar', {userId}) %>
+        <h1>Store List</h1>
+        <table border="1">
             <tr>
-                <td><%= el.username %></td>
-                <td><a href="/stores/<%= el.id %>"><%= el.Store.name %></a></td>
-                <td><%= el.Store.productSales %></td>
+                <th>Username</th>
+                <th>Store Name</th>
+                <th>Total sales</th>
             </tr>
-        <% }) %>
-        
-    </table>
+            <% data.forEach(el => { %>
+                <tr>
+                    <td><%= el.username %></td>
+                    <td><a href="/stores/<%= el.Store.id %>"><%= el.Store.name %></a></td>
+                    <td><%= el.Store.productSales %></td>
+                </tr>
+            <% }) %>
+        </table>
+    </center>
 </body>
 </html>
